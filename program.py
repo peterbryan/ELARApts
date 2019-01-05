@@ -5,7 +5,7 @@
 import csv
 
 
-with open('srsqtr1raw.csv', encoding='utf-8-sig') as exampleFile:
+with open('srsqtr2raw.csv', encoding='utf-8-sig') as exampleFile:
     exampleReader = csv.reader(exampleFile)
     exampleData= list(exampleReader)
 
@@ -196,3 +196,15 @@ def Module3():
             data[currentStudent]['Tpts']=data[currentStudent]['Tpts']+data[currentStudent]['class']['H']['pts']
         except KeyError:
             continue
+
+def WriteOut():
+    outputFile=open('Output.csv','w',newline='')
+    outputWriter=csv.writer(outputFile)
+    outputWriter.writerow(['Student Name','Id','Advisory','Total Points'])
+    for currentStudent in data:
+        #print('about to write: ',currentStudent)
+        try:
+            outputWriter.writerow([currentStudent,data[currentStudent]['id'],data[currentStudent]['class']['H']['Teacher Name'],data[currentStudent]['Tpts'] ])
+        except KeyError:
+            continue
+    outputFile.close()
